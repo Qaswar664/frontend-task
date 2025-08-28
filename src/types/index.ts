@@ -17,7 +17,7 @@ export interface Car {
   model: string;
   year: number;
   categoryId: string;
-  // Add more fields as needed
+  
 }
 
 export interface AuthState {
