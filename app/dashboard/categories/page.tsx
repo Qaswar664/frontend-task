@@ -33,7 +33,7 @@ export default function Categories() {
         <h2 className="text-2xl font-bold text-gray-800">Categories</h2>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow-md transition-all"
+          className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow-md transition-all"
         >
           + Create Category
         </button>
@@ -98,7 +98,7 @@ export default function Categories() {
             </button>
             <button
               type="submit"
-              className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow-md transition-all"
+              className="bg-green-600 cursor-pointer hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow-md transition-all"
             >
               Create
             </button>

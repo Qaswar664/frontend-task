@@ -32,7 +32,7 @@ export default function Register() {
 
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold shadow hover:bg-indigo-700 transition"
+            className="w-full cursor-pointer bg-indigo-600 text-white py-2 rounded-lg font-semibold shadow hover:bg-indigo-700 transition"
           >
             Register
           </button>
@@ -40,7 +40,7 @@ export default function Register() {
 
         <div className="text-center mt-6 text-gray-500 text-sm">
           Already have an account?{' '}
-          <Link href="/auth/login" className="text-indigo-600 hover:underline">
+          <Link href="/auth/login" className="text-indigo-600  hover:underline">
             Login
           </Link>
         </div>

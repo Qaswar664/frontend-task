@@ -57,7 +57,7 @@ export default function CarsPage() {
             if (categories && categories.length > 0)
               openAddModal(categories[0]);
           }}
-          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md shadow"
+          className="bg-green-600 cursor-pointer hover:bg-green-700 text-white px-4 py-2 rounded-md shadow"
         >
           + Add Car
         </button>
@@ -90,7 +90,7 @@ export default function CarsPage() {
                   </Link>
                   <button
                     onClick={() => openAddModal(cat)}
-                    className="text-green-600 hover:text-green-800 text-sm font-medium"
+                    className="text-green-600 cursor-pointer hover:text-green-800 text-sm font-medium"
                   >
                     + Add Car
                   </button>
@@ -132,7 +132,7 @@ export default function CarsPage() {
             </button>
             <button
               type="submit"
-              className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow-md transition-all"
+              className="bg-green-600 cursor-pointer hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow-md transition-all"
             >
               Add Car
             </button>
