@@ -10,6 +10,7 @@ export const userApi = createApi({
     baseUrl: `${BASE_URL}/user`, // dynamic base URL + /user
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
+      console.log("User API Token:", token); // Debug log
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }

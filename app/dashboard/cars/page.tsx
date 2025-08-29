@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useGetCategoriesQuery } from "../../../utils/categoryApi";
-import { useCreateCarMutation } from "../../../utils/carApi";
-import type { Category } from "../../../types";
-import Modal from "../../../components/Modal";
-import FormInput from "../../../components/FormInput";
+import { useGetCategoriesQuery } from "@/utils/categoryApi";
+import { useCreateCarMutation } from "@/utils/carApi";
+import type { Category } from "@/types";
+import Modal from "@/components/Modal";
+import FormInput from "@/components/FormInput";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 

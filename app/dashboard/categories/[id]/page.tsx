@@ -2,8 +2,8 @@
 
 import { useParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { useGetCategoryByIdQuery, useUpdateCategoryMutation } from '../../../../utils/categoryApi';
-import FormInput from '../../../../components/FormInput';
+import { useGetCategoryByIdQuery, useUpdateCategoryMutation } from '@/../utils/categoryApi';
+import FormInput from '@/../components/FormInput';
 import { useEffect } from 'react';
 
 export default function CategoryDetail() {

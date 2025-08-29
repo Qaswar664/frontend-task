@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetProfileQuery } from "../../../utils/userApi";
+import { useGetProfileQuery } from "@/utils/userApi";
 
 export default function Profile() {
   const { data: user, isLoading } = useGetProfileQuery();

@@ -1,9 +1,9 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { useRegisterMutation } from '../../../utils/authApi';
+import { useRegisterMutation } from '@/utils/authApi';
+import FormInput from '@/components/FormInput';
 import { useRouter } from 'next/navigation';
-import FormInput from '../../../components/FormInput';
 import Link from 'next/link';
 
 export default function Register() {

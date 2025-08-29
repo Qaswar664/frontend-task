@@ -6,10 +6,10 @@ import {
   useGetCategoriesQuery,
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
-} from '../../../utils/categoryApi';
+} from '@/utils/categoryApi';
 import Link from 'next/link';
-import Modal from '../../../components/Modal';
-import FormInput from '../../../components/FormInput';
+import Modal from '@/components/Modal';
+import FormInput from '@/components/FormInput';
 
 export default function Categories() {
   const { data: categories, isLoading } = useGetCategoriesQuery();

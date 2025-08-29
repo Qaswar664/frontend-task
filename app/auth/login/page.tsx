@@ -1,8 +1,8 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { useLoginMutation } from "../../../utils/authApi";
+import { useLoginMutation } from "@/utils/authApi";
+import FormInput from "@/components/FormInput";
 import { useRouter } from "next/navigation";
-import FormInput from "../../../components/FormInput";
 import Link from "next/link";
 
 export default function Login() {
