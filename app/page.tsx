@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { useSelector } from 'react-redux';
-import { RootState } from '../lib/store';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useSelector } from "react-redux";
+import { RootState } from "../lib/store";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Spinner from "../components/Spinner";
 
 export default function Home() {
   const { token } = useSelector((state: RootState) => state.auth);
@@ -11,11 +12,15 @@ export default function Home() {
 
   useEffect(() => {
     if (token) {
-      router.push('/dashboard');
+      router.push("/dashboard");
     } else {
-      router.push('/auth/login');
+      router.push("/auth/login");
     }
   }, [token, router]);
 
-  return <div>Loading...</div>;
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <Spinner size="xl" />
+    </div>
+  );
 }

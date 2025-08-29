@@ -17,6 +17,10 @@ export const carApi = createApi({
   }),
   tagTypes: ["Car"],
   endpoints: (builder) => ({
+    getAllCars: builder.query<Car[], void>({
+      query: () => "/",
+      providesTags: ["Car"],
+    }),
     getCarsByCategory: builder.query<Car[], string>({
       query: (categoryId) => `/category/${categoryId}`,
       providesTags: ["Car"],
@@ -76,6 +80,7 @@ export const carApi = createApi({
 });
 
 export const {
+  useGetAllCarsQuery,
   useGetCarsByCategoryQuery,
   useGetCarByIdQuery,
   useCreateCarMutation,

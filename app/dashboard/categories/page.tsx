@@ -1,30 +1,55 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import Link from "next/link";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import FormInput from "@/components/FormInput";
+import Modal from "@/components/Modal";
+import Spinner from "@/components/Spinner";
 import {
-  useGetCategoriesQuery,
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
-} from '@/utils/categoryApi';
-import Link from 'next/link';
-import Modal from '@/components/Modal';
-import FormInput from '@/components/FormInput';
+  useGetCategoriesQuery,
+} from "@/utils/categoryApi";
 
 export default function Categories() {
   const { data: categories, isLoading } = useGetCategoriesQuery();
   const [createCategory] = useCreateCategoryMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { register, handleSubmit, reset } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [deletingIds, setDeletingIds] = useState<string[]>([]);
+  const { register, handleSubmit, reset } = useForm<{
+    name: string;
+    description?: string;
+  }>();
 
-  const onSubmit = async (data: any) => {
-    await createCategory(data);
-    setIsModalOpen(false);
-    reset();
+  const onSubmit = async (data: { name: string; description?: string }) => {
+    setIsSubmitting(true);
+    try {
+      await createCategory(data);
+      setIsModalOpen(false);
+      reset();
+    } catch (error) {
+      console.error("Failed to create category:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  if (isLoading) return <div className="text-center text-lg font-semibold">Loading...</div>;
+  const handleDelete = async (id: string) => {
+    setDeletingIds((prev) => [...prev, id]);
+    try {
+      await deleteCategory(id);
+    } catch (error) {
+      console.error("Failed to delete category:", error);
+    } finally {
+      setDeletingIds((prev) => prev.filter((deletingId) => deletingId !== id));
+    }
+  };
+
+  if (isLoading)
+    return <div className="text-center text-lg font-semibold">Loading...</div>;
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
@@ -33,7 +58,7 @@ export default function Categories() {
         <h2 className="text-2xl font-bold text-gray-800">Categories</h2>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow-md transition-all"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow-md transition-all flex items-center justify-center cursor-pointer"
         >
           + Create Category
         </button>
@@ -63,10 +88,18 @@ export default function Categories() {
                     Edit
                   </Link>
                   <button
-                    onClick={() => deleteCategory(cat.id)}
-                    className="text-red-500 hover:text-red-700 font-medium"
+                    onClick={() => handleDelete(cat.id)}
+                    disabled={deletingIds.includes(cat.id)}
+                    className="text-red-500 hover:text-red-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer"
                   >
-                    Delete
+                    {deletingIds.includes(cat.id) ? (
+                      <>
+                        <Spinner size="sm" className="mr-1" />
+                        Deleting...
+                      </>
+                    ) : (
+                      "Delete"
+                    )}
                   </button>
                 </td>
               </tr>
@@ -83,7 +116,11 @@ export default function Categories() {
       </div>
 
       {/* Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Create Category">
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Create Category"
+      >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <FormInput id="name" label="Name" register={register} required />
           <FormInput id="description" label="Description" register={register} />
@@ -92,15 +129,24 @@ export default function Categories() {
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="px-4 py-2 border rounded-md hover:bg-gray-100"
+              disabled={isSubmitting}
+              className="px-4 py-2 border rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-green-600 cursor-pointer hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow-md transition-all"
+              disabled={isSubmitting}
+              className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[100px] cursor-pointer"
             >
-              Create
+              {isSubmitting ? (
+                <>
+                  <Spinner size="sm" className="mr-2" />
+                  Creating...
+                </>
+              ) : (
+                "Create"
+              )}
             </button>
           </div>
         </form>

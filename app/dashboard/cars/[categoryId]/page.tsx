@@ -1,13 +1,12 @@
 "use client";
 
 import React from "react";
-import { useParams, useRouter } from "next/navigation";
-import { useGetCarsByCategoryQuery } from "@/../utils/carApi";
+import { useParams } from "next/navigation";
+import { useGetCarsByCategoryQuery } from "@/utils/carApi";
 import Link from "next/link";
 
 export default function CategoryCarsPage() {
   const { categoryId } = useParams();
-  const router = useRouter();
   const { data: cars, isLoading } = useGetCarsByCategoryQuery(
     categoryId as string
   );
@@ -25,7 +24,7 @@ export default function CategoryCarsPage() {
             className="bg-white rounded-lg shadow p-4 flex flex-col justify-between"
           >
             <div>
-              <h3 className="text-lg font-semibold">{car.name}</h3>
+              <h3 className="text-lg font-semibold">{car.make}</h3>
               <p className="text-sm text-gray-500">Model: {car.model}</p>
             </div>
             <div className="mt-4 flex gap-2">

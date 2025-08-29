@@ -1,13 +1,11 @@
 // src/app/layout.tsx
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import Providers from '../lib/Providers';
-const inter = Inter({ subsets: ['latin'] });
+import type { Metadata } from "next";
+import Providers from "../lib/Providers";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'MERN Challenge Frontend',
-  description: 'Frontend for MERN stack challenge',
+  title: "MERN Challenge Frontend",
+  description: "Frontend for MERN stack challenge",
 };
 
 export default function RootLayout({

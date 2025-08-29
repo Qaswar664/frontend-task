@@ -1,18 +1,43 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "@/utils/authApi";
-import FormInput from "@/components/FormInput";
 import { useRouter } from "next/navigation";
+import FormInput from "@/components/FormInput";
+import Spinner from "@/components/Spinner";
 import Link from "next/link";
+import { useState } from "react";
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 
 export default function Login() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<LoginFormData>();
   const [login] = useLoginMutation();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = async (data: any) => {
-    await login(data);
-    router.push("/dashboard");
+  const onSubmit = async (data: LoginFormData) => {
+    console.log("🚀 LOGIN FORM SUBMITTED");
+    console.log("📝 Form Data:", data);
+    console.log("📧 Email:", data.email);
+    console.log("🔒 Password:", data.password);
+    console.log("⏰ Timestamp:", new Date().toISOString());
+
+    setIsLoading(true);
+    try {
+      console.log("🔄 Calling login mutation...");
+      await login(data);
+      console.log("✅ Login mutation completed successfully");
+      console.log("🚀 Redirecting to dashboard...");
+      router.push("/dashboard");
+    } catch (error) {
+      console.error("💥 Login error in component:", error);
+    } finally {
+      console.log("🏁 Login process finished, setting loading to false");
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -40,14 +65,22 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full cursor-pointer bg-indigo-600 text-white py-2 rounded-lg font-semibold shadow hover:bg-indigo-700 transition"
+            disabled={isLoading}
+            className="w-full bg-indigo-600 cursor-pointer text-white py-2 rounded-lg font-semibold shadow hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
           >
-            Login
+            {isLoading ? (
+              <>
+                <Spinner size="sm" className="mr-2" />
+                Logging in...
+              </>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 
         <div className="text-center mt-6 text-gray-500 text-sm">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link
             href="/auth/register"
             className="text-indigo-600 hover:underline"
