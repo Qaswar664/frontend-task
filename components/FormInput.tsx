@@ -1,10 +1,10 @@
-import { 
-  UseFormRegister, 
-  FieldValues, 
-  Path, 
-  RegisterOptions 
-} from 'react-hook-form';
-import React from 'react';
+import {
+  UseFormRegister,
+  FieldValues,
+  Path,
+  RegisterOptions,
+} from "react-hook-form";
+import React from "react";
 
 interface Props<TFieldValues extends FieldValues> {
   id: Path<TFieldValues>;
@@ -14,16 +14,20 @@ interface Props<TFieldValues extends FieldValues> {
   options?: RegisterOptions<TFieldValues, Path<TFieldValues>>;
   required?: boolean;
   className?: string;
+  readOnly?: boolean;
+  value?: string | number;
 }
 
-export default function FormInput<TFieldValues extends FieldValues = FieldValues>({
+export default function FormInput<
+  TFieldValues extends FieldValues = FieldValues
+>({
   id,
   label,
-  type = 'text',
+  type = "text",
   register,
   options,
   required = false,
-  className = '',
+  className = "",
 }: Props<TFieldValues>) {
   return (
     <div className={`mb-4 ${className}`}>

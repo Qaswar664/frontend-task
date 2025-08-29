@@ -12,11 +12,10 @@ export interface Category {
 
 export interface Car {
   id: string;
-  name: string;
+  name: string; // <-- backend expects 'make', not 'name'
   model: string;
   year: number;
   categoryId: string;
-  
 }
 
 export interface AuthState {

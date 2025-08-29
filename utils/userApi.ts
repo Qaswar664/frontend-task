@@ -1,23 +1,24 @@
-// src/app/api/userApi.ts
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../lib/store';
-import { User } from '../types';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { RootState } from "../lib/store";
+import { User } from "../types";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL; // dynamic base URL
 
 export const userApi = createApi({
-  reducerPath: 'userApi',
+  reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/user',
+    baseUrl: `${BASE_URL}/user`, // dynamic base URL + /user
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set("Authorization", `Bearer ${token}`);
       }
       return headers;
     },
   }),
   endpoints: (builder) => ({
     getProfile: builder.query<User, void>({
-      query: () => '/profile',
+      query: () => "/profile",
     }),
   }),
 });
