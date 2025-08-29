@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useRegisterMutation } from '../../../utils/authApi';
 import { useRouter } from 'next/navigation';
 import FormInput from '../../../components/FormInput';
+import Link from 'next/link';
 
 export default function Register() {
   const { register, handleSubmit } = useForm();
@@ -39,9 +40,9 @@ export default function Register() {
 
         <div className="text-center mt-6 text-gray-500 text-sm">
           Already have an account?{' '}
-          <a href="/auth/login" className="text-indigo-600 hover:underline">
+          <Link href="/auth/login" className="text-indigo-600 hover:underline">
             Login
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,8 +1,9 @@
-'use client';
-import { useForm } from 'react-hook-form';
-import { useLoginMutation } from '../../../utils/authApi';
-import { useRouter } from 'next/navigation';
-import FormInput from '../../../components/FormInput';
+"use client";
+import { useForm } from "react-hook-form";
+import { useLoginMutation } from "../../../utils/authApi";
+import { useRouter } from "next/navigation";
+import FormInput from "../../../components/FormInput";
+import Link from "next/link";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
@@ -11,7 +12,7 @@ export default function Login() {
 
   const onSubmit = async (data: any) => {
     await login(data);
-    router.push('/dashboard');
+    router.push("/dashboard");
   };
 
   return (
@@ -19,13 +20,23 @@ export default function Login() {
       <div className="bg-white rounded-xl shadow-lg p-10 w-full max-w-md">
         {/* Optional Logo or Hero */}
         <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-indigo-600">Car Management App</h1>
-          <p className="text-gray-500 mt-2">Login to manage your cars and categories</p>
+          <h1 className="text-3xl font-bold text-indigo-600">
+            Car Management App
+          </h1>
+          <p className="text-gray-500 mt-2">
+            Login to manage your cars and categories
+          </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <FormInput id="email" label="Email" register={register} required />
-          <FormInput id="password" label="Password" type="password" register={register} required />
+          <FormInput
+            id="password"
+            label="Password"
+            type="password"
+            register={register}
+            required
+          />
 
           <button
             type="submit"
@@ -36,10 +47,13 @@ export default function Login() {
         </form>
 
         <div className="text-center mt-6 text-gray-500 text-sm">
-          Don't have an account?{' '}
-          <a href="/auth/register" className="text-indigo-600 hover:underline">
+          Don't have an account?{" "}
+          <Link
+            href="/auth/register"
+            className="text-indigo-600 hover:underline"
+          >
             Register
-          </a>
+          </Link>
         </div>
       </div>
     </div>
